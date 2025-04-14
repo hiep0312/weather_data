@@ -53,18 +53,8 @@ def create_tables():
 
 def load_data(fact_df, dim_df):
     logger.info("Starting data load process")
-
-    # Khởi tạo SparkSession
-    spark = SparkSession.builder \
-        .appName("DataLoader") \
-        .getOrCreate()
-
-    # Chuyển đổi pandas DataFrame sang Spark DataFrame
-    spark_fact_df = spark.createDataFrame(fact_df)
-    spark_dim_df = spark.createDataFrame(dim_df)
-
     try:
-        spark_dim_df.write \
+        dim_df.write \
             .format("jdbc") \
             .option("url", JDBC_URL) \
             .option("dbtable", "cities") \
@@ -74,7 +64,7 @@ def load_data(fact_df, dim_df):
             .save()
         logger.info("Cities data loaded successfully")
 
-        spark_fact_df.write \
+        fact_df.write \
             .format("jdbc") \
             .option("url", JDBC_URL) \
             .option("dbtable", "weather_measurements") \
@@ -83,7 +73,6 @@ def load_data(fact_df, dim_df):
             .mode("append") \
             .save()
         logger.info("Weather measurements data loaded successfully")
-
     except Exception as e:
         logger.error(f"Error loading data: {str(e)}")
         raise

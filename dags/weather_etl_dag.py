@@ -25,9 +25,9 @@ from scripts.data_loader import load_data, create_tables
 def create_spark_session():
     return SparkSession.builder \
         .appName("WeatherETL") \
-        .config("spark.jars", "/Users/stuartmills/Documents/weather-data-integration/postgresql-42.7.4.jar") \
-        .config("spark.driver.extraClassPath", "/Users/stuartmills/Documents/weather-data-integration/postgresql-42.7.4.jar") \
-        .config("spark.executor.extraClassPath", "/Users/stuartmills/Documents/weather-data-integration/postgresql-42.7.4.jar") \
+        .config("spark.jars", "/home/roy/source/weather_data/postgresql-42.7.4.jar") \
+        .config("spark.driver.extraClassPath", "/home/roy/source/weather_data/postgresql-42.7.4.jar") \
+        .config("spark.executor.extraClassPath", "/home/roy/source/weather_data/postgresql-42.7.4.jar") \
         .config("spark.hadoop.javax.jdo.option.ConnectionDriverName", "org.postgresql.Driver") \
         .config("spark.hadoop.javax.jdo.option.ConnectionURL", f"jdbc:postgresql://{DB_HOST}:{DB_PORT}/{DB_NAME}") \
         .config("spark.hadoop.javax.jdo.option.ConnectionUserName", DB_USER) \
@@ -54,7 +54,7 @@ def etl_process():
 default_args = {
     'owner': 'airflow',
     'depends_on_past': False,
-    'start_date': datetime(2023, 5, 1),
+    'start_date': datetime(2025, 4, 14),
     'email_on_failure': False,
     'email_on_retry': False,
     'retries': 1,

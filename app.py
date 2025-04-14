@@ -27,9 +27,9 @@ def get_weather_data():
     SELECT c.city_name, w.date, w.temperature, w.humidity
     FROM weather_measurements w
     JOIN cities c ON w.city_id = c.city_id
-    WHERE w.date BETWEEN '2023-08-21' AND '2023-08-30'
-    ORDER BY c.city_name, w.date
-    """)
+    ORDER BY w.date DESC
+    LIMIT 100
+""")
     
     with engine.connect() as connection:
         result = connection.execute(query)

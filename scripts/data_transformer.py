@@ -26,8 +26,6 @@ if __name__ == "__main__":
     
     spark = SparkSession.builder \
         .appName("WeatherDataTransformer") \
-        .config("spark.driver.memory", "4g") \
-        .config("spark.executor.memory", "4g") \
         .getOrCreate()
 
     test_data = [
